@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Responsive Navbar</title>
+	<link rel="stylesheet" href="main.css" />
+</head>
+<body>
+	<div class="app">
+		<div class="menu-toggle">
+			<div class="hamburger">
+				<span></span>
+			</div>
+		</div>
+
+		<aside class="sidebar">
+			<h3>Menu</h3>
+			
+			<nav class="menu">
+				<ul class="nav">
+					<a href="admin-dashboard.php" class="list-group-item admin-link <?= (basename($_SERVER['PHP_SELF'])=='admin-dashboard.php')?"nav-active":""; ?>">
+					<i class="now-ui-icons design_app" id="icons"> </i>&nbsp;&nbsp;DASHBOARD</a>
+	
+					<a href="admin-management.php" class="list-group-item admin-link <?= (basename($_SERVER['PHP_SELF'])=='admin-management.php')?"nav-active":""; ?>">
+					<i class="now-ui-icons design_vector" id="icons"></i>&nbsp;&nbsp;MANAGEMENT</a>
+	
+					<a href="admin-students.php" class="list-group-item admin-link <?= (basename($_SERVER['PHP_SELF'])=='admin-students.php')?"nav-active":""; ?>">
+					<i class="now-ui-icons business_badge" id="icons"></i>&nbsp;&nbsp;STUDENTS</a>
+	
+					<a href="admin-faculty.php" class="list-group-item admin-link <?= (basename($_SERVER['PHP_SELF'])=='admin-faculty.php')?"nav-active":""; ?>">
+					<i class="now-ui-icons education_glasses" id="icons"></i>&nbsp;&nbsp;FACULTY</a>
+	
+					<a href="admin-account.php" class="list-group-item admin-link <?= (basename($_SERVER['PHP_SELF'])=='admin-account.php')?"nav-active":""; ?>">
+					<i class="now-ui-icons users_single-02" id="icons"></i>&nbsp;&nbsp;ADMIN ACCOUNT</a>
+	
+					<a href="admin-website.php" class="list-group-item  admin-link <?= (basename($_SERVER['PHP_SELF'])=='admin-website.php')?"nav-active":""; ?>">
+					<i class="now-ui-icons design-2_html5" id="icons"></i>&nbsp;&nbsp;WEBSITE</a>
+				</ul>
+			</nav>
+
+		</aside>
+
+		<main class="content">
+			<h1>Welcome, Human</h1>
+			<p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Officia, explicabo!</p>
+		</main>
+	</div>
+
+	<script>
+		const menu_toggle = document.querySelector('.menu-toggle');
+		const sidebar = document.querySelector('.sidebar');
+
+		menu_toggle.addEventListener('click', () => {
+			menu_toggle.classList.toggle('is-active');
+			sidebar.classList.toggle('is-active');
+		});
+	</script>
+</body>
+</html>
