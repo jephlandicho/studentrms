@@ -1,5 +1,6 @@
 <?php
 require_once 'config.php';
+require_once 'connection.php';
 
 class Admin extends Database{
 
@@ -98,6 +99,49 @@ class Admin extends Database{
             $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
             return $result;
         }
+
+        // fetch all Sections
+
+        public function fetchAllSection(){
+            $sql = "SELECT `section_id`, `section`, `grade_level`, `dept_name`
+            FROM sections
+            INNER JOIN grade_level ON grade_level.gl_id=sections.grade_level_id
+            INNER JOIN department ON grade_level.dept_id=department.dept_id;";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->execute();
+            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            return $result;
+        }
+
+                // fetch all Sections
+
+                public function fetchAllSubjects(){
+                    $sql = "SELECT `subject_id`, `subject_name`, `subject_desc`,`term`, `grade_level`,  `dept_name`
+                    FROM subjects
+                    INNER JOIN grade_level ON grade_level.gl_id=subjects.grade_level_id
+                    INNER JOIN department ON grade_level.dept_id=department.dept_id;";
+                    $stmt = $this->conn->prepare($sql);
+                    $stmt->execute();
+                    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                    return $result;
+                }
+
+                public function fetchEnrolled(){
+                    global $con;
+                    $StudentID = $_POST['StudentID'];
+                    $sql = "SELECT `enrollment_id`, CONCAT(grade_level.grade_level , ' ' , sections.section ) as grade_sect, department.dept_name, enrolled_student.Status, acad_year.acad_year, enrolled_student.Date_Enrolled
+                    FROM enrolled_student
+                    INNER JOIN students ON students.Student_code=enrolled_student.Student_code
+                    INNER JOIN sections ON sections.section_id=enrolled_student.Section_id
+                    INNER JOIN acad_year ON acad_year.ay_id=enrolled_student.Acad_Year_id
+                    INNER JOIN grade_level ON grade_level.gl_id=sections.grade_level_id
+                    INNER JOIN department ON grade_level.dept_id=department.dept_id
+                    WHERE students.Student_code = '$StudentID';";
+                    $stmt = $this->conn->prepare($sql);
+                    $stmt->execute();
+                    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                    return $result;
+                }
     // end of class
     }
 ?>

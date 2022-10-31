@@ -115,7 +115,7 @@
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h3 class="text-dark">Delete Admin Account</h3>
+            <h3 class="text-dark">Delete Teacher Account</h3>
           </div>
           <div class="modal-body">
             <p> Do You Want to Delete the Record ?</p>

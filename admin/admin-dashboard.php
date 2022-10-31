@@ -45,7 +45,7 @@
                                 <div class="card-body bg-light text-center shadow rounded">
                                   <h2 class="card-title">Sections</h2>
                                   <hr>
-                                  <h1 class="card-text">25</h1>
+                                  <h1 class="card-text"><?= $count->totalCount('sections')?></h1>
                                 </div>
                               </div>
                             </div>
@@ -55,7 +55,7 @@
                                 <div class="card-body bg-warning text-center shadow rounded">
                                   <h2 class="card-title">Subjects</h2>
                                   <hr>
-                                  <h1 class="card-text">25</h1>
+                                  <h1 class="card-text"><?= $count->totalCount('subjects')?></h1>
                                 </div>
                               </div>
                             </div>

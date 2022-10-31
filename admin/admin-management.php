@@ -27,7 +27,7 @@
             <div class="box">
                 <div class="our-services speedup">
                 <h4 style = "height: 100px; line-height: 50px; text-align: center;">SECTIONS</h4>
-                <a href="">
+                <a href="admin-mng-sections.php">
                     <i style='color:white; font-size:50px' class='fas'>&#xf35a;</i>
                 </a>
                 </div>
@@ -37,7 +37,7 @@
             <div class="box">
                 <div class="our-services privacy">
                     <h4 style = "height: 100px; line-height: 50px; text-align: center;">SUBJECTS</h4>
-                    <a href="">
+                    <a href="admin-mng-subjects.php">
                     <i style='color:white; font-size:50px' class='fas'>&#xf35a;</i>
                     </a>
                 </div>

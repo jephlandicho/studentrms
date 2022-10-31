@@ -177,6 +177,26 @@
       </div>
     </div>
 
+    <!--Show Modal enrollment-->
+<div class="modal" id="enrollment">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h3 class="text-dark">Student Enrollment Records</h3>
+          </div>
+          <div class="modal-body">
+          <div class="card-body">
+              <div class="table-responsive" id="showEnrollment">
+              </div>
+          </div>
+          </div>
+          <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal" id="btn_close">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
 <?php
     require_once 'assets/php/footer.php'
 ?>

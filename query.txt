@@ -1,0 +1,14 @@
+SELECT `section`, `grade_level`, `dept_name`
+FROM sections
+INNER JOIN grade_level ON grade_level.gl_id=sections.grade_level_id
+INNER JOIN department ON grade_level.dept_id=department.dept_id;
+
+// for enrollment
+
+SELECT `enrollment_id`, CONCAT(grade_level.grade_level , ' ' , sections.section ) as grade_sect, department.dept_name, enrolled_student.Status, acad_year.acad_year, enrolled_student.Date_Enrolled
+FROM enrolled_student
+INNER JOIN students ON students.Student_code=enrolled_student.Student_code
+INNER JOIN sections ON sections.section_id=enrolled_student.Section_id
+INNER JOIN acad_year ON acad_year.ay_id=enrolled_student.Acad_Year_id
+INNER JOIN grade_level ON grade_level.gl_id=sections.grade_level_id
+INNER JOIN department ON grade_level.dept_id=department.dept_id;

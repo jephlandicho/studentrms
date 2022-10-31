@@ -356,6 +356,7 @@ $(document).ready(function(){
     {
         $(document).on('click', '#editTeachers',function(){
             var ID = $(this).attr('data-id');
+            console.log(ID);
             $.ajax(
                 {
                     url: 'edit-teacher-info.php',
@@ -512,6 +513,308 @@ fetchAllAcad();
             }
         })
     }
+
+    // edit acad year
+    editAcadYear();
+    function editAcadYear()
+    {
+        $(document).on('click', '#editAcad',function(){
+            var ID = $(this).attr('data-id');
+        //    console.log(ID);
+            $.ajax(
+                {
+                    url: 'edit-acad-info.php',
+                    method: 'post',
+                    data:{AcadID:ID},
+                    dataType: 'JSON',
+                    success: function(data)
+                    {
+                        $('#Up_Acad_ID').val(data[0]);
+                        $('#Up_Acad').val(data[1]);
+                        $('#updateacad').modal('show');
+                    }
+
+                })
+        })
+    }
+
+    // update acadamic year
+
+    update_acad();
+    function update_acad()
+    {
+    
+    $(document).on('click','#btn_update_acad',function()
+    {
+        var UpdateID = $('#Up_Acad_ID').val();
+        var UpdateAcad = $('#Up_Acad').val();
+
+        if(UpdateID=="" || UpdateAcad=="")
+        {
+            $('#up-message').html('Please Fill in the Blanks');
+            $('#updateacad').modal('show');
+        }
+        else{
+                $('#up-message').html('');
+                $.ajax(
+                    {
+                        url: 'edit-acad-info-function.php',
+                        method: 'post',
+                        data:{UpdateID:UpdateID,UpdateAcad:UpdateAcad},
+                        success: function(data)
+                        {
+                            alert(data);
+                            // $('#up-message').html(data);
+                            $('#updateacad').modal('show');
+                            window.location = 'admin-mng-acadyear.php'
+                        }
+                    })
+            }
+        
+
+        
+    })
+}
+
+    // Delete teacher information
+    delete_acad();
+    function delete_acad()
+    {
+        $(document).on('click','#deleteAcad',function()
+        {
+            var Delete_ID = $(this).attr('data-id4');
+            $('#delete_acad').modal('show');
+
+            $(document).on('click','#btn_delete_acad',function()
+            {
+                $.ajax(
+                    {
+                        url: 'delete-acad.php',
+                        method: 'post',
+                        data:{Del_ID:Delete_ID},
+                        success: function(data)
+                        {
+                            $('#delete-message').html(data).hide(5000);
+                            window.location = 'admin-mng-acadyear.php'
+                        }
+                    })
+            })
+        })
+    }
+
+    // insert section 
+add_section();
+function add_section()
+{
+   $(document).on('click','#btn_section',function()
+   {
+        var Section = $('#add_sections').val();
+        var Grade_level = $('#add_Gradelevel').val();
+
+        if(Section == "")
+        {
+            $('#message').html('Please Fill in the Blanks ');
+        }
+        else
+        {
+            $.ajax(
+                {
+                    url : 'add-section.php',
+                    method: 'post',
+                    data:{Section:Section,Grade_level:Grade_level},
+                    success: function(data)
+                    {
+                        $('#message').html(data);
+                        $('#add-section').modal('show');
+                        $('form').trigger('reset');
+                        alert('New Section Added');
+                        window.location = 'admin-mng-sections.php'
+                    }
+                })
+        }
+        
+   })
+}
+
+fetchAllSection();
+    function fetchAllSection(){
+        $.ajax({
+            url: 'assets/php/admin-action.php',
+            method : 'post',
+            data : {action: 'fetchAllSection'},
+            success:function(response){
+                $('#showSection').html(response);
+                $("#sectionTable").DataTable({
+                    order: [0,'desc']
+                });
+            }
+        })
+    }
+
+     // edit section
+     editSection();
+     function editSection()
+     {
+         $(document).on('click', '#editSection',function(){
+             var ID = $(this).attr('data-id');
+         //    console.log(ID);
+             $.ajax(
+                 {
+                     url: 'edit-section-info.php',
+                     method: 'post',
+                     data:{SectionID:ID},
+                     dataType: 'JSON',
+                     success: function(data)
+                     {
+                         $('#Up_Section_ID').val(data[0]);
+                         $('#up_sections').val(data[1]);
+                         $('#up_Gradelevel').val(data[2]);
+                         $('#updatesection').modal('show');
+                     }
+ 
+                 })
+         })
+     }
+
+     // update sections
+
+    update_section();
+    function update_section()
+    {
+    
+    $(document).on('click','#btn_update_section',function()
+    {
+        var UpdateID = $('#Up_Section_ID').val();
+        var UpdateSect = $('#up_sections').val();
+        var UpdateGL = $('#up_Gradelevel').val();
+
+        if(UpdateID=="" || UpdateSect=="")
+        {
+            $('#up-message').html('Please Fill in the Blanks');
+            $('#updatesection').modal('show');
+        }
+        else{
+                $('#up-message').html('');
+                $.ajax(
+                    {
+                        url: 'edit-section-info-function.php',
+                        method: 'post',
+                        data:{UpdateID:UpdateID,UpdateSect:UpdateSect,UpdateGL:UpdateGL},
+                        success: function(data)
+                        {
+                            alert(data);
+                            // $('#up-message').html(data);
+                            $('#updatesection').modal('show');
+                            window.location = 'admin-mng-sections.php'
+                        }
+                    })
+            }
+        
+
+        
+    })
+}
+
+    // insert subject 
+    add_subject();
+    function add_subject()
+    {
+       $(document).on('click','#btn_subjects',function()
+       {
+            var subject = $('#add_subject').val();
+            var subject_desc = $('#add_subject_desc').val();
+            var term = $('#add_term').val();
+            var Grade_level = $('#add_Gradelevel').val();
+    
+            if(subject == "", subject_desc == "")
+            {
+                $('#message').html('Please Fill in the Blanks ');
+            }
+            else
+            {
+                $.ajax(
+                    {
+                        url : 'add-subjects.php',
+                        method: 'post',
+                        data:{subject:subject,subject_desc:subject_desc,term:term,Grade_level:Grade_level},
+                        success: function(data)
+                        {
+                            $('#message').html(data);
+                            $('#add-subjects').modal('show');
+                            $('form').trigger('reset');
+                            alert('New Subject Added');
+                            window.location = 'admin-mng-subjects.php'
+                        }
+                    })
+            }
+            
+       })
+    }
+
+    fetchAllSubjects();
+    function fetchAllSubjects(){
+        $.ajax({
+            url: 'assets/php/admin-action.php',
+            method : 'post',
+            data : {action: 'fetchAllSubjects'},
+            success:function(response){
+                $('#showSubjects').html(response);
+                $("#subjectTable").DataTable({
+                    order: [0,'desc']
+                });
+            }
+        })
+    }
+        // insert section 
+        display_enrollment();
+        function display_enrollment()
+        {
+           $(document).on('click','#enrollStudent',function()
+           {
+            var ID = $(this).attr('data-id3');
+            $.ajax({
+                url: 'assets/php/admin-action.php',
+                method : 'post',
+                data : {StudentID:ID, action: 'fetchEnrolled'},
+                success:function(response){
+                    $('#enrollment').modal('show');
+                    $('#showEnrollment').html(response);
+                    $("#enrollmentTable").DataTable({
+                        order: [0,'desc']
+                    });
+                }
+            })
+            
+                // var subject = $('#add_subject').val();
+                // var subject_desc = $('#add_subject_desc').val();
+                // var term = $('#add_term').val();
+                // var Grade_level = $('#add_Gradelevel').val();
+        
+                // if(subject == "", subject_desc == "")
+                // {
+                //     $('#message').html('Please Fill in the Blanks ');
+                // }
+                // else
+                // {
+                //     $.ajax(
+                //         {
+                //             url : 'add-subjects.php',
+                //             method: 'post',
+                //             data:{subject:subject,subject_desc:subject_desc,term:term,Grade_level:Grade_level},
+                //             success: function(data)
+                //             {
+                //                 $('#message').html(data);
+                //                 $('#add-subjects').modal('show');
+                //                 $('form').trigger('reset');
+                //                 alert('New Subject Added');
+                //                 window.location = 'admin-mng-subjects.php'
+                //             }
+                //         })
+                // }
+                
+           })
+        }
+    // enrollStudent
 //end of the document
     });
 

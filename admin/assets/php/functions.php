@@ -256,6 +256,8 @@ function delete_teacher()
         echo ' Please Check Your Query ';
     }
 }
+
+// add Academic Year
 function add_acad()
 {
     global $con;
@@ -273,5 +275,138 @@ function add_acad()
         echo ' Please Check Your Query ';
     }
 }
-        
+// for selecting acad information
+function edit_acad()
+{
+    global $con;
+    $AcadID = $_POST['AcadID'];
+    $sql = "SELECT * FROM `acad_year` WHERE `ay_id` = '$AcadID';";
+    $result = mysqli_query($con,$sql);
+    while($row=mysqli_fetch_array($result)){
+        $Acad_data[0]=$row['ay_id'];
+        $Acad_data[1]=$row['acad_year'];
+
+    }
+    echo json_encode($Acad_data);
+    
+}
+
+// for editing acad information
+function update_value_acad()
+{
+    global $con;
+    $UpdateID = $_POST['UpdateID'];
+    $UpdateAcad = $_POST['UpdateAcad'];
+
+
+    $query = "UPDATE acad_year SET `acad_year`= '$UpdateAcad' where ay_id= '$UpdateID'";
+    $result = mysqli_query($con,$query);
+    if($result)
+    {
+        echo ' Acad Year Has Been Updated ';
+    }
+    else
+    {
+        echo ' Please Check Your Query ';
+    }
+
+}
+// delete acad
+function delete_acad()
+{
+    global $con;
+    $Del_Id = $_POST['Del_ID'];
+    $query = "DELETE FROM acad_year WHERE ay_id = '$Del_Id'";
+    $result = mysqli_query($con,$query);
+
+    if($result)
+    {
+        echo ' Acad Year Has Been Deleted ';
+    }
+    else
+    {
+        echo ' Please Check Your Query ';
+    }
+}
+
+// add section
+function add_section()
+{
+    global $con;
+    $Section = $_POST['Section'];
+    $GLevel = $_POST['Grade_level'];
+    
+    $query = "INSERT INTO `sections` (`section`, `grade_level_id`) VALUES ('$Section', '$GLevel');";
+    $result= mysqli_query($con,$query);
+
+    if($result)
+    {
+        echo 'New Section Added';
+    }
+    else
+    {
+        echo ' Please Check Your Query ';
+    }
+}
+
+// for selecting section information
+function edit_section()
+{
+    global $con;
+    $SectionID = $_POST['SectionID'];
+    $sql = "SELECT * FROM `sections` WHERE `section_id` = '$SectionID';";
+    $result = mysqli_query($con,$sql);
+    while($row=mysqli_fetch_array($result)){
+        $Sect_data[0]=$row['section_id'];
+        $Sect_data[1]=$row['section'];
+        $Sect_data[2]=$row['grade_level_id'];
+
+    }
+    echo json_encode($Sect_data);
+    
+}
+
+// for editing acad information
+function update_value_section()
+{
+    global $con;
+    $UpdateID = $_POST['UpdateID'];
+    $UpdateSect = $_POST['UpdateSect'];
+    $UpdateGL = $_POST['UpdateGL'];
+
+
+    $query = "UPDATE sections SET `section`= '$UpdateSect', `grade_level_id`= '$UpdateGL' where section_id='$UpdateID'";
+    $result = mysqli_query($con,$query);
+    if($result)
+    {
+        echo ' Section Has Been Updated ';
+    }
+    else
+    {
+        echo ' Please Check Your Query ';
+    }
+
+}
+
+// add section
+function add_subject()
+{
+    global $con;
+    $subject = $_POST['subject'];
+    $subject_desc = $_POST['subject_desc'];
+    $term = $_POST['term'];
+    $Grade_level = $_POST['Grade_level'];
+    
+    $query = "INSERT INTO `subjects` (`subject_name`, `subject_desc`, `term`, `grade_level_id`) VALUES ('$subject', '$subject_desc', '$term', '$Grade_level');";
+    $result= mysqli_query($con,$query);
+
+    if($result)
+    {
+        echo 'New Subject Added';
+    }
+    else
+    {
+        echo ' Please Check Your Query ';
+    }
+}
 ?>
