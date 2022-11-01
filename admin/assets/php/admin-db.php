@@ -129,7 +129,7 @@ class Admin extends Database{
                 public function fetchEnrolled(){
                     global $con;
                     $StudentID = $_POST['StudentID'];
-                    $sql = "SELECT `enrollment_id`, CONCAT(grade_level.grade_level , ' ' , sections.section ) as grade_sect, department.dept_name, enrolled_student.Status, acad_year.acad_year, enrolled_student.Date_Enrolled
+                    $sql = "SELECT `enrollment_id`, CONCAT(grade_level.grade_level , ' ' , sections.section ) as grade_sect, department.dept_name, enrolled_student.Status, acad_year.acad_year, enrolled_student.Date_Enrolled, students.Student_code 
                     FROM enrolled_student
                     INNER JOIN students ON students.Student_code=enrolled_student.Student_code
                     INNER JOIN sections ON sections.section_id=enrolled_student.Section_id

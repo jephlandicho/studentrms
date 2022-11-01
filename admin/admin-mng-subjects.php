@@ -15,10 +15,9 @@
                         </h5>
                     </div>
                     <div class="px-2">
-                            
                             <input id="btn_subject" class="btn btn-success mt-2" data-toggle="modal" data-target="#add-subjects" value="Add New Subject" style="height:50px; width:200px; border-radius: 50px; font-size:16px;">
                             </a>  
-</div>
+                    </div>
                     <div class="card-body">
                                      
                             <div class="table-responsive" id="showSubjects">
@@ -68,7 +67,7 @@
                         echo "</select>";
                     }
                     else{
-                        echo $conn->error;
+                        echo $con->error;
                     }  ?>
                     </div>
                        

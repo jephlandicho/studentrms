@@ -765,7 +765,62 @@ fetchAllSection();
             }
         })
     }
-        // insert section 
+
+    // get the student code and student name
+    enrollStudent();
+    function enrollStudent()
+    {
+        $(document).on('click', '#enrollStudent',function(){
+            var ID = $(this).attr('data-id3');
+        //    console.log(ID);
+            $.ajax(
+                {
+                    url: 'enroll-student.php',
+                    method: 'post',
+                    data:{StudID:ID},
+                    dataType: 'JSON',
+                    success: function(data)
+                    {
+                        $('#add_code').val(data[0]);
+                        $('#add_name').val(data[1]);
+                        $('#enrollment').modal('show');
+                    }
+
+                })
+        })
+    }
+
+    // enroll students
+    add_enroll();
+    function add_enroll()
+    {
+       $(document).on('click','#enroll',function()
+       {
+            var Student_Code = $('#add_code').val();
+            var Student_Stat = $('#add_stat').val();
+            var Student_GLevel = $('#add_Gradelevel').val();
+            var Student_AcadYear = $('#add_year').val();
+            
+                $.ajax(
+                    {
+                        url : 'add-enrollment.php',
+                        method: 'post',
+                        data:{Student_Code:Student_Code,Student_Stat:Student_Stat,Student_GLevel:Student_GLevel,Student_AcadYear:Student_AcadYear},
+                        success: function(data)
+                        {
+                            alert(data);
+                            $('#enrollment').modal('show');
+                            $('form').trigger('reset');
+                            
+                            window.location = 'admin-students.php'
+                        }
+                    })
+            
+            
+       })
+    }
+
+        //display enrollment
         display_enrollment();
         function display_enrollment()
         {
@@ -784,33 +839,6 @@ fetchAllSection();
                     });
                 }
             })
-            
-                // var subject = $('#add_subject').val();
-                // var subject_desc = $('#add_subject_desc').val();
-                // var term = $('#add_term').val();
-                // var Grade_level = $('#add_Gradelevel').val();
-        
-                // if(subject == "", subject_desc == "")
-                // {
-                //     $('#message').html('Please Fill in the Blanks ');
-                // }
-                // else
-                // {
-                //     $.ajax(
-                //         {
-                //             url : 'add-subjects.php',
-                //             method: 'post',
-                //             data:{subject:subject,subject_desc:subject_desc,term:term,Grade_level:Grade_level},
-                //             success: function(data)
-                //             {
-                //                 $('#message').html(data);
-                //                 $('#add-subjects').modal('show');
-                //                 $('form').trigger('reset');
-                //                 alert('New Subject Added');
-                //                 window.location = 'admin-mng-subjects.php'
-                //             }
-                //         })
-                // }
                 
            })
         }

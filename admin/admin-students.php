@@ -1,5 +1,12 @@
 <?php
-    require_once 'assets/php/header.php'
+    require_once 'assets/php/header.php';
+    require_once 'assets/php/connection.php';
+    global $con;
+    $query = "SELECT `section`, `grade_level`, `section_id`
+    FROM sections
+    INNER JOIN grade_level ON grade_level.gl_id=sections.grade_level_id
+    ";
+    $sql = "SELECT * FROM `acad_year`";
 ?>
       <div class="content">
         <div class="row">
@@ -185,7 +192,63 @@
             <h3 class="text-dark">Student Enrollment Records</h3>
           </div>
           <div class="modal-body">
+          
           <div class="card-body">
+          <form id="modal-form">
+          <div class="row">
+                    <div class="col-md-6">
+                    <label style="font-size:12px;"> Student Code </label>
+                    <input name="add_code" id="add_code" type="text" class="form-control my-2" placeholder="Student Code" readonly>
+                    </div>
+                    <div class="col-md-6">
+                    <label style="font-size:12px;"> Student Name </label>
+                    <input name="add_name" id="add_name" type="text" class="form-control my-2" placeholder="Student Name" readonly>
+                    </div>
+                    <div class="col-md-4">
+                        <label style="color: black;">Status</label>
+                            <select id="add_stat" name="add_stat" class="form-control my-2">
+                                <option value="New">New</option>
+                                <option value="Continuing">Continuing</option>
+                                <option value="Transferee">Transferee</option>
+                      </select>
+                    </div>
+
+                    <div class="col-md-4">
+                    <label style="color: black;">Grade Level</label>
+                    <?php
+                    if ($r_set = $con->query($query)){
+                        echo "<SELECT id='add_Gradelevel' name=grade_level class='form-control my-2' style='width: 200px'>";
+                        while($row = $r_set->fetch_assoc()){
+                            echo "<option value=$row[section_id]> ($row[grade_level])  $row[section]</option>";
+                        }
+                        echo "</select>";
+                    }
+                    else{
+                        echo $con->error;
+                    }  ?>
+                    </div>
+
+                    <div class="col-md-4">
+                    <label style="color: black;">Academic Year</label>
+                    <?php
+                    if ($r_set = $con->query($sql)){
+                        echo "<SELECT id='add_year' name=acad_year class='form-control my-2' style='width: 200px'>";
+                        while($row = $r_set->fetch_assoc()){
+                            echo "<option value=$row[ay_id]> $row[acad_year]</option>";
+                        }
+                        echo "</select>";
+                    }
+                    else{
+                        echo $con->error;
+                    }  ?>
+                    </div>
+                    
+                </div>
+                <div class="px-0">
+                  <button class="btn btn-success " type="submit" id="enroll" name="enroll" value="Enroll" > Enroll </button>
+                  </div>
+                  </form>
+                  <hr>
               <div class="table-responsive" id="showEnrollment">
               </div>
           </div>
@@ -196,6 +259,7 @@
         </div>
       </div>
     </div>
+
 
 <?php
     require_once 'assets/php/footer.php'

@@ -351,9 +351,11 @@ else{
 
 // displaying Student Enrollment Records
     if(isset($_POST['action']) && $_POST['action'] == 'fetchEnrolled'){
+        
     $output = '';
     $data = $admin->fetchEnrolled(0);
     if($data){
+        
         $output.= '<table class="table table-striped text-center" id="enrollmentTable">
         <thead class=" text-warning">
         <th class="text-center"> ID </th>
@@ -374,7 +376,7 @@ else{
             <td> '.$row['Status'].' </td>
             <td> '.$row['acad_year'].' </td>
             <td> '.$row['Date_Enrolled'].' </td>
-            <td> <button class="btn btn-warning rounded btn-sm" data-id="'. $row['enrollment_id'].'" id = "editSubject"> <i class="fas fa-edit"> </i> </button> </td>
+            <td> <button class="btn btn-warning rounded btn-sm" data-id="'. $row['enrollment_id'].'" id = "editEnrollment"> <i class="fas fa-edit"> </i> </button> </td>
             <td> <button class="btn btn-warning rounded btn-sm" data-id2="'. $row['enrollment_id'].'" id = "assignedSubject"> <i class="fas fa-book-open"> </i> </button> </td>
         </tr>';
     }

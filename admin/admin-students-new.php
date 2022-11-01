@@ -83,12 +83,6 @@
                                     <input class="form-control" id="date" name="date" placeholder="YYYY/MM/DD" type="text" required />
                                     </div>
                                     </div>
-                                    <!-- <div class="col-md-3 px-5 pl-1">
-                                        <div class="form-group">
-                                            <label style="color: black;">Age</label>
-                                            <input name="inAge" id="inAge" type="number" class="form-control" placeholder="Age">
-                                        </div>
-                                    </div> -->
                                     <div class="col-md-6 px-5 pl-1">
                                         <div class="form-group">
                                             <label style="color: black;">Address</label>

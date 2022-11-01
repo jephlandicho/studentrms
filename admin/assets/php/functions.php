@@ -409,4 +409,35 @@ function add_subject()
         echo ' Please Check Your Query ';
     }
 }
+
+function get_code(){
+    global $con;
+        $StudentID = $_POST['StudID'];
+        $sql = "SELECT `Student_code`, CONCAT(`LName`, ',', '' , `FName` , ' ' , `MName`) as Fullname FROM `students` WHERE `Student_code` =  '$StudentID';";
+        $result = mysqli_query($con,$sql);
+        while($row=mysqli_fetch_array($result)){
+            $Student_data[0]=$row['Student_code'];
+            $Student_data[1]=$row['Fullname'];
+    
+        }
+        echo json_encode($Student_data);
+}
+
+function enroll_stud(){
+    global $con;
+        $Student_Code = $_POST['Student_Code'];
+        $Student_Stat = $_POST['Student_Stat'];
+        $Student_GLevel = $_POST['Student_GLevel'];
+        $Student_AcadYear = $_POST['Student_AcadYear'];
+        $sql = "INSERT INTO `enrolled_student` (`Student_code`, `Section_id`, `Status`, `Acad_Year_id`) VALUES ('$Student_Code', '$Student_GLevel', '$Student_Stat', '$Student_AcadYear');";
+        $result = mysqli_query($con,$sql);
+        if($result)
+        {
+            echo 'Student Enrolled Successfully';
+        }
+        else
+        {
+            echo ' Please Check Your Query ';
+        }
+}
 ?>
