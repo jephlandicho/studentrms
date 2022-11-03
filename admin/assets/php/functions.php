@@ -440,4 +440,51 @@ function enroll_stud(){
             echo ' Please Check Your Query ';
         }
 }
+
+function get_data_enroll(){
+    global $con;
+        $AssSub = $_POST['AssSub'];
+        $sql = "SELECT `enrollment_id`, students.Student_code , CONCAT(LName , ',' , ' ' , FName , ' ' ,MName) AS FullName, enrolled_student.Status, acad_year.acad_year, CONCAT(grade_level.grade_level , ' ' , sections.section ) as grade_section  
+        FROM enrolled_student
+        INNER JOIN students ON students.Student_code=enrolled_student.Student_code
+        INNER JOIN sections ON sections.section_id=enrolled_student.Section_id
+        INNER JOIN acad_year ON acad_year.ay_id=enrolled_student.Acad_Year_id
+        INNER JOIN grade_level ON grade_level.gl_id=sections.grade_level_id
+        INNER JOIN department ON grade_level.dept_id=department.dept_id
+        WHERE enrolled_student.enrollment_id = '$AssSub';";
+        $result = mysqli_query($con,$sql);
+        while($row=mysqli_fetch_array($result)){
+            $en_data[0]=$row['enrollment_id'];
+            $en_data[1]=$row['Student_code'];
+            $en_data[2]=$row['FullName'];
+            $en_data[3]=$row['Status'];
+            $en_data[4]=$row['acad_year'];
+            $en_data[5]=$row['grade_section'];
+    
+        }
+        echo json_encode($en_data);
+}
+
+function assign_subjects(){
+    global $con;
+
+    $enrollID = $_POST['EnID'];
+    $Subs = $_POST['Subs'];
+     
+    foreach($Subs as $subjects)
+    {
+        $query = "INSERT INTO `student_subject` (subj_code, enroll_id) VALUES ('$subjects', '$enrollID'); ";
+        $result = mysqli_query($con,$query);
+        
+    }
+    if($result)
+        {
+            echo 'Subjects Assigned Successfully';
+        }
+        else
+        {
+            echo ' Please Check Your Query ';
+        }
+
+}
 ?>

@@ -31,22 +31,22 @@ if(isset($_POST['action']) && $_POST['action'] == 'fetchAllAdminAcc'){
         if($data){
             $output.= '<table class="table table-striped text-center">
             <thead class=" text-warning">
-            <th class="text-center"> ID </th>
+           
             <th class="text-center"> Name </th>
             <th class="text-center"> Username </th>
             <th class="text-center"> Email </th>
-            <th class="text-center"> Edit </th>
-            <th class="text-center"> Delete </th>
+            <th class="text-center"> Actions </th>
+            
             </thead>
             <tbody>';
     foreach ($data as $row){
         $output .= '<tr>
-                <td> '.$row['admin_id'].' </td>
+                
                 <td> '.$row['name'].' </td>
                 <td> '.$row['username'].' </td>
                 <td> '.$row['email'].' </td>
-                <td> <button class="btn btn-warning rounded btn-sm" data-id="'. $row['admin_id'].'" id = "editAdmin"> <i class="fas fa-edit"> </i> </button> </td>
-                <td> <button class="btn btn-warning rounded btn-sm" data-id1="'.$row['admin_id'].'" id = "deleteAdmin"> <i class="fa fa-trash-alt" ></i> </button> </td>
+                <td> <button class="btn btn-warning rounded me-3 btn-sm" data-id="'. $row['admin_id'].'" id = "editAdmin"> <i class="fas fa-edit"> </i> </button> <button class="btn btn-warning rounded btn-sm" data-id1="'.$row['admin_id'].'" id = "deleteAdmin"> <i class="fa fa-trash-alt" ></i> </button> </td>
+                
             </tr>';
     }
         $output .= '</tbody>
@@ -141,8 +141,7 @@ if(isset($_POST['action']) && $_POST['action'] == 'fetchAllStudentsInfo'){
         <th class="text-center"> Age </th>
         <th class="text-center"> Birthdate </th>
         <th class="text-center"> Email </th>
-        <th class="text-center"> Edit </th>
-        <th class="text-center"> Delete </th>
+        <th class="text-center"> Actions </th>
         <th class="text-center"> Enrollment </th>
         </thead>
         <tbody>';
@@ -154,8 +153,7 @@ foreach ($data as $row){
             <td> '.$row['Age'].' </td>
             <td> '.$row['Birthdate'].' </td>
             <td> '.$row['Email'].' </td>
-            <td> <button class="btn btn-warning rounded btn-sm" data-id="'. $row['Student_code'].'" id = "editStudent"> <i class="fas fa-edit"> </i> </button> </td>
-            <td> <button class="btn btn-warning rounded btn-sm" data-id2="'.$row['Student_code'].'" id = "deleteStudent"> <i class="fa fa-trash-alt" ></i> </button> </td>
+            <td> <button class="btn btn-warning rounded mt-1 btn-sm" data-id="'. $row['Student_code'].'" id = "editStudent"> <i class="fas fa-edit"> </i> </button> <button class="btn btn-warning rounded mt-1 btn-sm" data-id2="'.$row['Student_code'].'" id = "deleteStudent"> <i class="fa fa-trash-alt" ></i> </button> </td>
             <td> <button class="btn btn-warning rounded btn-sm" data-id3="'.$row['Student_code'].'" id = "enrollStudent"> <i class="fas fa-address-book" ></i> </button> </td>
         </tr>';
 }
@@ -214,8 +212,7 @@ if(isset($_POST['action']) && $_POST['action'] == 'fetchAllTeachersInfo'){
         <th class="text-center"> Age </th>
         <th class="text-center"> Birthdate </th>
         <th class="text-center"> Email </th>
-        <th class="text-center"> Edit </th>
-        <th class="text-center"> Delete </th>
+        <th class="text-center"> Actions </th>
         </thead>
         <tbody>';
 foreach ($data as $row){
@@ -226,8 +223,7 @@ foreach ($data as $row){
             <td> '.$row['Age'].' </td>
             <td> '.$row['Birthdate'].' </td>
             <td> '.$row['Email'].' </td>
-            <td> <button class="btn btn-warning rounded btn-sm" data-id="'. $row['t_code'].'" id = "editTeachers"> <i class="fas fa-edit"> </i> </button> </td>
-            <td> <button class="btn btn-warning rounded btn-sm" data-id3="'.$row['t_code'].'" id = "deleteTeachers"> <i class="fa fa-trash-alt" ></i> </button> </td>
+            <td> <button class="btn btn-warning rounded btn-sm" data-id="'. $row['t_code'].'" id = "editTeachers"> <i class="fas fa-edit"> </i> </button> <button class="btn btn-warning rounded btn-sm" data-id3="'.$row['t_code'].'" id = "deleteTeachers"> <i class="fa fa-trash-alt" ></i> </button> </td>
         </tr>';
 }
     $output .= '</tbody>
@@ -249,18 +245,14 @@ if(isset($_POST['action']) && $_POST['action'] == 'fetchAllAcad'){
     if($data){
         $output.= '<table class="table table-striped text-center" id="acadTable">
         <thead class=" text-warning">
-        <th class="text-center"> ID </th>
         <th class="text-center" > Academic Year </th>
-        <th class="text-center"> Edit </th>
-        <th class="text-center" > Delete </th>
+        <th class="text-center"> Actions </th>
         </thead>
         <tbody>';
 foreach ($data as $row){
     $output .= '<tr>
-            <td> '.$row['ay_id'].' </td>
             <td> '.$row['acad_year'].' </td>
-            <td> <button class="btn btn-warning rounded btn-sm" data-id="'. $row['ay_id'].'" id = "editAcad"> <i class="fas fa-edit"> </i> </button> </td>
-            <td> <button class="btn btn-warning rounded btn-sm" data-id4="'.$row['ay_id'].'" id = "deleteAcad"> <i class="fa fa-trash-alt" ></i> </button> </td>
+            <td> <button class="btn btn-warning rounded btn-sm me-3" data-id="'. $row['ay_id'].'" id = "editAcad"> <i class="fas fa-edit"> </i> <button class="btn btn-warning rounded btn-sm" data-id4="'.$row['ay_id'].'" id = "deleteAcad"> <i class="fa fa-trash-alt" ></i> </button> </button> </td>
         </tr>';
 }
     $output .= '</tbody>
@@ -282,16 +274,14 @@ if(isset($_POST['action']) && $_POST['action'] == 'fetchAllSection'){
     if($data){
         $output.= '<table class="table table-striped text-center" id="sectionTable">
         <thead class=" text-warning">
-        <th class="text-center"> ID </th>
         <th class="text-center"> Section </th>
         <th class="text-center" > Grade Level </th>
         <th class="text-center" > Department Name </th>
-        <th class="text-center"> Edit </th>
+        <th class="text-center"> Actions </th>
         </thead>
         <tbody>';
 foreach ($data as $row){
     $output .= '<tr>
-            <td> '.$row['section_id'].' </td>
             <td> '.$row['section'].' </td>
             <td> '.$row['grade_level'].' </td>
             <td> '.$row['dept_name'].' </td>
@@ -317,18 +307,16 @@ if(isset($_POST['action']) && $_POST['action'] == 'fetchAllSubjects'){
     if($data){
         $output.= '<table class="table table-striped text-center" id="subjectTable">
         <thead class=" text-warning">
-        <th class="text-center"> ID </th>
         <th class="text-center"> Subject Name </th>
         <th class="text-center"> Subject Description </th>
         <th class="text-center"> Term </th>
         <th class="text-center" > Grade Level </th>
         <th class="text-center" > Department Name </th>
-        <th class="text-center"> Edit </th>
+        <th class="text-center"> Actions </th>
         </thead>
         <tbody>';
 foreach ($data as $row){
     $output .= '<tr>
-            <td> '.$row['subject_id'].' </td>
             <td> '.$row['subject_name'].' </td>
             <td> '.$row['subject_desc'].' </td>
             <td> '.$row['term'].' </td>
@@ -358,19 +346,17 @@ else{
         
         $output.= '<table class="table table-striped text-center" id="enrollmentTable">
         <thead class=" text-warning">
-        <th class="text-center"> ID </th>
         <th class="text-center"> Grade & Section </th>
         <th class="text-center"> Department </th>
         <th class="text-center"> Status </th>
         <th class="text-center" > Academic Year </th>
         <th class="text-center" > Date Enrolled </th>
-        <th class="text-center"> Edit </th>
+        <th class="text-center"> Actions </th>
         <th class="text-center"> Subjects </th>
         </thead>
         <tbody>';
     foreach ($data as $row){
     $output .= '<tr>
-            <td> '.$row['enrollment_id'].' </td>
             <td> '.$row['grade_sect'].' </td>
             <td> '.$row['dept_name'].' </td>
             <td> '.$row['Status'].' </td>
@@ -380,7 +366,7 @@ else{
             <td> <button class="btn btn-warning rounded btn-sm" data-id2="'. $row['enrollment_id'].'" id = "assignedSubject"> <i class="fas fa-book-open"> </i> </button> </td>
         </tr>';
     }
-    $output .= '</tbody>
+    $output .= '</tbody>s
     </table>';
 
     echo $output;
@@ -392,6 +378,39 @@ else{
 
     }
          
+    // displaying Student Enrolled Subjects
+    if(isset($_POST['action']) && $_POST['action'] == 'fetchAssSub'){
+        
+    $output = '';
+    $data = $admin->fetchAssSub(0);
+    if($data){
+        
+        $output.= '<table class="table table-striped text-center" id="assSubTable">
+        <thead class=" text-warning">
+        <th class="text-center"> Subjects </th>
+        <th class="text-center"> Term </th>
+        <th class="text-center"> Grade Level </th>
+        <th class="text-center"> Actions </th>
+        </thead>
+        <tbody>';
+    foreach ($data as $row){
+    $output .= '<tr>
+            <td> '.$row['subject_name'].' </td>
+            <td> '.$row['term'].' </td>
+            <td> '.$row['grade_level'].' </td>
+            <td> <button class="btn btn-warning rounded btn-sm" data-id4="'.$row['student_sub_id'].'" id = "deleteAssSub"> <i class="fa fa-trash-alt" ></i> </button> </td>
+        </tr>';
+    }
+    $output .= '</tbody>
+    </table>';
 
+    echo $output;
+    }
+
+    else{
+    echo '<h3 class="text-center text-secondary"> ASSIGNED SUBJECTS NOT FOUND !!</h3>';
+    }
+
+    }
 
 ?>

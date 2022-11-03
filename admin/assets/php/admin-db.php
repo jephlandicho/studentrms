@@ -113,35 +113,58 @@ class Admin extends Database{
             return $result;
         }
 
-                // fetch all Sections
+        // fetch all subjects
 
-                public function fetchAllSubjects(){
-                    $sql = "SELECT `subject_id`, `subject_name`, `subject_desc`,`term`, `grade_level`,  `dept_name`
-                    FROM subjects
-                    INNER JOIN grade_level ON grade_level.gl_id=subjects.grade_level_id
-                    INNER JOIN department ON grade_level.dept_id=department.dept_id;";
-                    $stmt = $this->conn->prepare($sql);
-                    $stmt->execute();
-                    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-                    return $result;
-                }
+        public function fetchAllSubjects(){
+            $sql = "SELECT `subject_id`, `subject_name`, `subject_desc`,`term`, `grade_level`,  `dept_name`
+            FROM subjects
+            INNER JOIN grade_level ON grade_level.gl_id=subjects.grade_level_id
+            INNER JOIN department ON grade_level.dept_id=department.dept_id;";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->execute();
+            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            return $result;
+        }
 
-                public function fetchEnrolled(){
-                    global $con;
-                    $StudentID = $_POST['StudentID'];
-                    $sql = "SELECT `enrollment_id`, CONCAT(grade_level.grade_level , ' ' , sections.section ) as grade_sect, department.dept_name, enrolled_student.Status, acad_year.acad_year, enrolled_student.Date_Enrolled, students.Student_code 
-                    FROM enrolled_student
-                    INNER JOIN students ON students.Student_code=enrolled_student.Student_code
-                    INNER JOIN sections ON sections.section_id=enrolled_student.Section_id
-                    INNER JOIN acad_year ON acad_year.ay_id=enrolled_student.Acad_Year_id
-                    INNER JOIN grade_level ON grade_level.gl_id=sections.grade_level_id
-                    INNER JOIN department ON grade_level.dept_id=department.dept_id
-                    WHERE students.Student_code = '$StudentID';";
-                    $stmt = $this->conn->prepare($sql);
-                    $stmt->execute();
-                    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-                    return $result;
-                }
+        // fetch enrollment information
+        public function fetchEnrolled(){
+            global $con;
+            $StudentID = $_POST['StudentID'];
+            $sql = "SELECT `enrollment_id`, CONCAT(grade_level.grade_level , ' ' , sections.section ) as grade_sect, department.dept_name, enrolled_student.Status, acad_year.acad_year, enrolled_student.Date_Enrolled, students.Student_code 
+            FROM enrolled_student
+            INNER JOIN students ON students.Student_code=enrolled_student.Student_code
+            INNER JOIN sections ON sections.section_id=enrolled_student.Section_id
+            INNER JOIN acad_year ON acad_year.ay_id=enrolled_student.Acad_Year_id
+            INNER JOIN grade_level ON grade_level.gl_id=sections.grade_level_id
+            INNER JOIN department ON grade_level.dept_id=department.dept_id
+            WHERE students.Student_code = '$StudentID';";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->execute();
+            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            return $result;
+        }
+        
+        // fetch assigned subjects
+        public function fetchAssSub(){
+            global $con;
+            $EnID = $_POST['EnID'];
+            $sql = "SELECT `student_sub_id` , subjects.subject_name, subjects.term, grade_level.grade_level
+            FROM student_subject
+            INNER JOIN subjects ON subjects.subject_id=student_subject.subj_code
+            INNER JOIN enrolled_student ON enrolled_student.enrollment_id=student_subject.enroll_id
+            INNER JOIN students ON students.Student_code=enrolled_student.Student_code
+            INNER JOIN sections ON sections.section_id=enrolled_student.Section_id
+            INNER JOIN acad_year ON acad_year.ay_id=enrolled_student.Acad_Year_id
+            INNER JOIN grade_level ON grade_level.gl_id=sections.grade_level_id
+            INNER JOIN department ON grade_level.dept_id=department.dept_id
+            WHERE enrolled_student.enrollment_id = '$EnID'
+            GROUP BY subj_code;";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->execute();
+            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            return $result;
+        }
+        // fetchAssSub
     // end of class
     }
 ?>

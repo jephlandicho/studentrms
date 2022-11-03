@@ -10,7 +10,9 @@ $(document).ready(function(){
             success:function(response){
                 $('#showAdminAcc').html(response);
                 $("table").DataTable({
-                    order: [0,'desc']
+                    order: [0,'desc'],
+                    destroy: true,
+                    paging: false
                 });
             }
         })
@@ -172,7 +174,9 @@ $(document).ready(function(){
             success:function(response){
                 $('#showStudents').html(response);
                 $("#studentsTable").DataTable({
-                    order: [0,'desc']
+                    order: [0,'desc'],
+                    destroy: true,
+                    paging: false
                 });
             }
         })
@@ -344,7 +348,9 @@ $(document).ready(function(){
             success:function(response){
                 $('#showTeachers').html(response);
                 $("#teachersTable").DataTable({
-                    order: [0,'desc']
+                    order: [0,'desc'],
+                    destroy: true,
+                    paging: false
                 });
             }
         })
@@ -508,7 +514,9 @@ fetchAllAcad();
             success:function(response){
                 $('#showAcad').html(response);
                 $("#acadTable").DataTable({
-                    order: [0,'desc']
+                    order: [0,'desc'],
+                    destroy: true,
+                    paging: false
                 });
             }
         })
@@ -645,7 +653,9 @@ fetchAllSection();
             success:function(response){
                 $('#showSection').html(response);
                 $("#sectionTable").DataTable({
-                    order: [0,'desc']
+                    order: [0,'desc'],
+                    destroy: true,
+                    paging: false
                 });
             }
         })
@@ -760,7 +770,9 @@ fetchAllSection();
             success:function(response){
                 $('#showSubjects').html(response);
                 $("#subjectTable").DataTable({
-                    order: [0,'desc']
+                    order: [0,'desc'],
+                    destroy: true,
+                    paging: true
                 });
             }
         })
@@ -835,14 +847,104 @@ fetchAllSection();
                     $('#enrollment').modal('show');
                     $('#showEnrollment').html(response);
                     $("#enrollmentTable").DataTable({
-                        order: [0,'desc']
+                        order: [0,'desc'],
+                        destroy: true,
+                        paging: false
                     });
                 }
             })
                 
            })
         }
-    // enrollStudent
+
+    // display enrolled subjects
+    enrolledSubs();
+    function enrolledSubs()
+    {
+        $(document).on('click', '#assignedSubject',function(){
+            var ID = $(this).attr('data-id2');
+        //    console.log(ID);
+            $.ajax(
+                {
+                    url: 'ass-subs.php',
+                    method: 'post',
+                    data:{AssSub:ID},
+                    dataType: 'JSON',
+                    success: function(data)
+                    {
+                        $('#enrollmentID').val(data[0]);
+                        $('#stud_code').val(data[1]);
+                        $('#stud_name').val(data[2]);
+                        $('#stud_stat').val(data[3]);
+                        $('#stud_ay').val(data[4]);
+                        $('#stud_gs').val(data[5]);
+                        $('#modal_subjects').modal('show');
+                        
+                    }
+
+                })
+        })
+    }
+
+     //display assigned subjects
+     display_assSub();
+     function display_assSub()
+     {
+        $(document).on('click','#assignedSubject',function()
+        {
+         var ID = $(this).attr('data-id2');
+         $.ajax({
+             url: 'assets/php/admin-action.php',
+             method : 'post',
+             data : {EnID:ID, action: 'fetchAssSub'},
+             success:function(response){
+                 $('#modal_subjects').modal('show');
+                 $('#showStudSub').html(response);
+                 $("#assSubTable").DataTable({
+                     order: [0,'desc'],
+                     destroy: true,
+                     paging: false
+                 });
+             }
+         })
+             
+        })
+     }
+
+    // assign
+    subs();
+    function subs()
+    {
+        $('#check_subs').multiselect({
+            nonSelectedText: "Select Subject",
+            enableFilter: true,
+            enableCaseInsensitiveFiltering: true,
+            buttonWidth: '200px',
+        })
+        
+        $(document).on('click', '#assSubs',function(event){
+            event.preventDefault();
+
+            var en_ID = $('#enrollmentID').val();
+            var subs = $('#check_subs').val();
+        
+            $.ajax({
+                url: 'assign-subjects.php',
+                method : 'post',
+                data : {EnID:en_ID, Subs: subs},
+                success:function(response){
+                    $('#check_subs option:selected').each(function(){
+                        $(this).prop('selected',false)
+                    })
+                    $('#check_subs').multiselect('refresh')
+                    
+                    alert(response)
+                    window.location = 'admin-students.php'
+                }
+            })
+            
+        })
+    }
 //end of the document
     });
 

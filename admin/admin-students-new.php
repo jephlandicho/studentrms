@@ -62,13 +62,13 @@
                                             <input name="inMname" id="inMname" type="text" class="form-control" placeholder="Middle Name">
                                         </div>
                                     </div>
-                                    <div class="col-md-3 px-5 pl-1">
+                                    <div class="col-md-4 px-5 pl-1">
                                         <div class="form-group">
                                             <label style="color: black;">Suffix</label>
                                             <input name="inSuffix" id="inSuffix" type="text" class="form-control" placeholder="Suffix">
                                         </div>
                                     </div>
-                                    <div class="col-md-3 px-5 pl-1">
+                                    <div class="col-md-4 px-5 pl-1">
                                         <div class="form-group">
                                             <label style="color: black;">Sex</label>
                                                 <select id="inSex" name="inSex" class="form-control">
@@ -77,9 +77,9 @@
                                                 </select>
                                         </div>
                                     </div>
-                                    <div class="col-md-3 px-5 pl-1">
+                                    <div class="col-md-4 px-5 pl-1">
                                     <div class="form-group">
-                                    <label class="control-label" for="date" style="color: black;">Date</label>
+                                    <label class="control-label" for="date" style="color: black;">Birthdate</label>
                                     <input class="form-control" id="date" name="date" placeholder="YYYY/MM/DD" type="text" required />
                                     </div>
                                     </div>

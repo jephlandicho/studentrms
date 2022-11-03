@@ -25,7 +25,7 @@
       </div>
            <!--Update Modal-->
     <div class="modal" id="update-teacher">
-      <div class="modal-dialog">
+      <div class="modal-dialog modal-lg">
         <div class="modal-content">
           <div class="modal-header">
             <h3 class="text-dark">Update Form</h3>
@@ -51,18 +51,18 @@
                     <label style="font-size:12px;"> Middle Name </label>
                     <input name="up_teach_mname" id="up_teach_mname" type="text" class="form-control my-2" placeholder="Middle Name">
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-3">
                     <label style="font-size:12px;"> Suffix </label>
                     <input name="up_teach_suffix" id="up_teach_suffix" type="text" class="form-control my-2" placeholder="Suffix">
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                     <label style="font-size:12px;"> Sex </label>
                     <select id="up_teach_sex" name="up_teach_sex" class="form-control my-2">
                         <option value="Male">Male</option>
                         <option value="Female">Female</option>
                     </select>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                     <label style="font-size:12px;"> Civil Status </label>
                     <select id="up_teach_status" name="up_teach_status" class="form-control my-2">
                         <option value="Single">Single</option>
@@ -70,8 +70,8 @@
                         <option value="Other">Other</option>
                     </select>
                     </div>
-                    <div class="col-md-4">
-                    <label style="font-size:12px;"> Date </label>
+                    <div class="col-md-3">
+                    <label style="font-size:12px;"> Birthdate </label>
                     <input class="form-control my-2" id="up_teach_date" name="up_teach_date" placeholder="YYYY/MM/DD" type="text">
                     </div>
                     <div class="col-md-12">

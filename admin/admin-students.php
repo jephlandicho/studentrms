@@ -7,6 +7,8 @@
     INNER JOIN grade_level ON grade_level.gl_id=sections.grade_level_id
     ";
     $sql = "SELECT * FROM `acad_year`";
+    $sql1 = "SELECT `subject_id`, `subject_name`, grade_level.grade_level FROM `subjects`
+    INNER JOIN grade_level ON grade_level.gl_id=subjects.grade_level_id";
 ?>
       <div class="content">
         <div class="row">
@@ -33,7 +35,7 @@
 
             <!--Update Modal-->
      <div class="modal" id="update-student">
-      <div class="modal-dialog">
+      <div class="modal-dialog modal-lg">
         <div class="modal-content">
           <div class="modal-header">
             <h3 class="text-dark">Update Form</h3>
@@ -74,7 +76,7 @@
                     </select>
                     </div>
                     <div class="col-md-4">
-                    <label style="font-size:12px;"> Date </label>
+                    <label style="font-size:12px;"> Birthdate </label>
                     <input class="form-control my-2" id="up_stud_date" name="up_stud_date" placeholder="YYYY/MM/DD" type="text">
                     </div>
                     <div class="col-md-12">
@@ -245,8 +247,8 @@
                     
                 </div>
                 <div class="px-0">
-                  <button class="btn btn-success " type="submit" id="enroll" name="enroll" value="Enroll" > Enroll </button>
-                  </div>
+                <button class="btn btn-success " type="submit" id="enroll" name="enroll" value="Enroll" > Enroll </button>
+                </div>
                   </form>
                   <hr>
               <div class="table-responsive" id="showEnrollment">
@@ -254,17 +256,81 @@
           </div>
           </div>
           <div class="modal-footer">
+          
           <button type="button" class="btn btn-danger" data-dismiss="modal" id="btn_close">Close</button>
           </div>
         </div>
       </div>
     </div>
 
+    <!-- Show Modal subjects -->
+    <div class="modal" id="modal_subjects">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h3 class="text-dark">Enrolled Subjects of Students</h3>
+          </div>
+          <div class="modal-body">
+          
+          <div class="card-body">
+          <div class="row">
+          <input type="hidden" id="enrollmentID" name="enrollmentID">
+                    <div class="col-md-6">
+                          <label style="font-size:12px; color: black;"> Student Code : </label>
+                          <input style="font-size:12px; color: black; background-color: white; border-width:0px; border:none;" name="stud_code" id="stud_code" type="text" class="form-control my-2" readonly>
+                    </div>
+                    <div class="col-md-6">
+                          <label style="font-size:12px; color: black;"> Student Name : </label>
+                          <input style="font-size:12px; color: black; background-color: white; border-width:0px; border:none;" name="stud_name" id="stud_name" type="text" class="form-control my-2" readonly>
+                    </div>
+                    
+          </div>
+          <hr>
+          <form id="assSubForm">
+            <div class="form-group" >
+                    <label style="color: black;">Subjects</label>
+                    <?php
+                    if ($r_set = $con->query($sql1)){
+                        echo "<select style='border-radius:50px;' id='check_subs' name='check_subs[]' class='form-control' multiple = 'multiple'>";
+                        while($row = $r_set->fetch_assoc()){
+                            echo "<option value=$row[subject_id]> ($row[grade_level]) $row[subject_name]</option>";
+                        }
+                        echo "</select>";
+                    }
+                    else{
+                        echo $con->error;
+                    }  ?>
+                    <!-- <div class="table-responsive" id="showSubjects">
+                    </div> -->
+                </div>  
+                <div class="form-group">
+                <input type="Submit" class="btn btn-success" id="assSubs" value="Assign Subject"></input>
+                  </div>
+                  </form>
+                  <hr>
+              <div  class="table-responsive" id="showStudSub">
+              </div>
+          </div>
+          </div>
+          <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal" id="btn_ass_close">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
 
 <?php
     require_once 'assets/php/footer.php'
 ?>
 <script>
+  // $(document).on('click','#btn_ass_close',function()
+  //         {
+  //           $('#enrollment').modal('show');
+                
+  //         })
         $(document).ready(function(){
         var date_input=$('input[name="up_stud_date"]');
         var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
@@ -276,6 +342,7 @@
         };
         date_input.datepicker(options);
         })
+
 </script>
 <script>
 
