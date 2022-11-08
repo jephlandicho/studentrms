@@ -144,7 +144,7 @@ class Admin extends Database{
             return $result;
         }
         
-        // fetch assigned subjects
+        // fetch assigned subjects for students
         public function fetchAssSub(){
             global $con;
             $EnID = $_POST['EnID'];
@@ -159,6 +159,22 @@ class Admin extends Database{
             INNER JOIN department ON grade_level.dept_id=department.dept_id
             WHERE enrolled_student.enrollment_id = '$EnID'
             GROUP BY subj_code;";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->execute();
+            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            return $result;
+        }
+
+        // fetch assigned subjects teachers
+        public function fetchTeachSubs(){
+            global $con;
+            $T_ID = $_POST['T_ID'];
+            $sql = "SELECT `subject_name`, `term`, `grade_level`, `subject_id`
+            FROM teacher_subjects
+            INNER JOIN teachers ON teachers.t_code=teacher_subjects.teach_code
+            INNER JOIN subjects ON subjects.subject_id=teacher_subjects.subs_id
+            INNER JOIN grade_level ON grade_level.gl_id=subjects.grade_level_id
+            WHERE teach_code = '$T_ID'";
             $stmt = $this->conn->prepare($sql);
             $stmt->execute();
             $result = $stmt->fetchAll(PDO::FETCH_ASSOC);

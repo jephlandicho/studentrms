@@ -1,5 +1,10 @@
 <?php
-    require_once 'assets/php/header.php'
+    require_once 'assets/php/header.php';
+    require_once 'assets/php/connection.php';
+    global $con;
+    $sql = "SELECT * FROM `acad_year`";
+    $sql1 = "SELECT `subject_id`, `subject_name`, grade_level.grade_level FROM `subjects`
+    INNER JOIN grade_level ON grade_level.gl_id=subjects.grade_level_id";
 ?>
       <div class="content">
         <div class="row">
@@ -125,7 +130,91 @@
         </div>
       </div>
     </div>
-</div>
+  <!-- Show Modal subjects -->
+  <div class="modal" id="modal_subject_teacher">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h3 class="text-dark">Assigned Subjects to Teacher</h3>
+          </div>
+          <div class="modal-body">
+          
+          <div class="card-body">
+          <div class="row">
+          <input type="hidden" id="t_code_ass" name="t_code_ass">
+          </div>
+          <form id="asstSubForm">
+            <div class="form-group" >
+                    <label style="color: black;">Subjects</label>
+                    <?php
+                    if ($r_set = $con->query($sql1)){
+                        echo "<select style='border-radius:50px;' id='check_teach_subs' name='check_teach_subs[]' class='form-control' multiple = 'multiple'>";
+                        while($row = $r_set->fetch_assoc()){
+                            echo "<option value=$row[subject_id]> ($row[grade_level]) $row[subject_name]</option>";
+                        }
+                        echo "</select>";
+                    }
+                    else{
+                        echo $con->error;
+                    }  ?>
+                </div>  
+                <div class="form-group">
+                <input type="Submit" class="btn btn-success" id="ass_t_Subs" value="Assign Subject"></input>
+                  </div>
+                  </form>
+                  <hr>
+              <div  class="table-responsive" id="showTeachSub">
+              </div>
+          </div>
+          </div>
+          <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal" id="btn_ass_close">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  <!-- Show Modal students assign subjects -->
+  <div class="modal" id="modal_students_ass_subs">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h3 class="text-dark">Studens</h3>
+          </div>
+          <div class="modal-body">
+          
+          <div class="card-body">
+          <div class="row">
+          <input type="text" id="subs_id" name="subs_id">
+          </div>
+          <form id="assstudSubsForm">
+            <div class="form-group">
+                    <label style="color: black;">Academic Year</label>
+                    <?php
+                    if ($r_set = $con->query($sql)){
+                        echo "<SELECT id='add_years' name=acad_years class='form-control my-2' style='width: 200px'>";
+                        while($row = $r_set->fetch_assoc()){
+                            echo "<option value=$row[ay_id]> $row[acad_year]</option>";
+                        }
+                        echo "</select>";
+                    }
+                    else{
+                        echo $con->error;
+                    }  ?>
+                    <input type="Submit" class="btn btn-success" id="view_stud_ass" value="View Students"></input>
+                </div>  
+                  </form>
+                  <hr>
+              <div  class="table-responsive" id="showStudAssSub">
+              </div>
+          </div>
+          </div>
+          <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal" id="btn_ass_close">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <?php
     require_once 'assets/php/footer.php'

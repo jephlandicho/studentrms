@@ -12,3 +12,15 @@ INNER JOIN sections ON sections.section_id=enrolled_student.Section_id
 INNER JOIN acad_year ON acad_year.ay_id=enrolled_student.Acad_Year_id
 INNER JOIN grade_level ON grade_level.gl_id=sections.grade_level_id
 INNER JOIN department ON grade_level.dept_id=department.dept_id;
+
+SELECT students.Student_code , CONCAT(LName , ',' , ' ' , FName , ' ' ,MName) AS Name, CONCAT(grade_level.grade_level , ' ' , sections.section ) as grade_sect, acad_year.acad_year  
+            FROM student_subject
+            INNER JOIN subjects ON subjects.subject_id=student_subject.subj_code
+            INNER JOIN enrolled_student ON enrolled_student.enrollment_id=student_subject.enroll_id
+            INNER JOIN students ON students.Student_code=enrolled_student.Student_code
+            INNER JOIN sections ON sections.section_id=enrolled_student.Section_id
+            INNER JOIN acad_year ON acad_year.ay_id=enrolled_student.Acad_Year_id
+            INNER JOIN grade_level ON grade_level.gl_id=sections.grade_level_id
+            INNER JOIN department ON grade_level.dept_id=department.dept_id
+            WHERE student_subject.subj_code = '2' AND acad_year.ay_id = '5'
+            GROUP BY students.Student_code;

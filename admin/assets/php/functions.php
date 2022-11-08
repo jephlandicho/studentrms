@@ -423,6 +423,7 @@ function get_code(){
         echo json_encode($Student_data);
 }
 
+
 function enroll_stud(){
     global $con;
         $Student_Code = $_POST['Student_Code'];
@@ -441,6 +442,7 @@ function enroll_stud(){
         }
 }
 
+// get data of the enrollment
 function get_data_enroll(){
     global $con;
         $AssSub = $_POST['AssSub'];
@@ -457,14 +459,12 @@ function get_data_enroll(){
             $en_data[0]=$row['enrollment_id'];
             $en_data[1]=$row['Student_code'];
             $en_data[2]=$row['FullName'];
-            $en_data[3]=$row['Status'];
-            $en_data[4]=$row['acad_year'];
-            $en_data[5]=$row['grade_section'];
     
         }
         echo json_encode($en_data);
 }
 
+// assign student subjects
 function assign_subjects(){
     global $con;
 
@@ -474,6 +474,29 @@ function assign_subjects(){
     foreach($Subs as $subjects)
     {
         $query = "INSERT INTO `student_subject` (subj_code, enroll_id) VALUES ('$subjects', '$enrollID'); ";
+        $result = mysqli_query($con,$query);
+        
+    }
+    if($result)
+        {
+            echo 'Subjects Assigned Successfully';
+        }
+        else
+        {
+            echo ' Please Check Your Query ';
+        }
+
+}
+// assign teacher subjects
+function assign_t_subjects(){
+    global $con;
+
+    $t_IDD = $_POST['t_IDD'];
+    $tsubs = $_POST['tsubs'];
+     
+    foreach($tsubs as $subject)
+    {
+        $query = "INSERT INTO `teacher_subjects` (teach_code, subs_id) VALUES ('$t_IDD', '$subject'); ";
         $result = mysqli_query($con,$query);
         
     }

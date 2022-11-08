@@ -875,9 +875,6 @@ fetchAllSection();
                         $('#enrollmentID').val(data[0]);
                         $('#stud_code').val(data[1]);
                         $('#stud_name').val(data[2]);
-                        $('#stud_stat').val(data[3]);
-                        $('#stud_ay').val(data[4]);
-                        $('#stud_gs').val(data[5]);
                         $('#modal_subjects').modal('show');
                         
                     }
@@ -886,7 +883,7 @@ fetchAllSection();
         })
     }
 
-     //display assigned subjects
+     //display assigned subjects to students
      display_assSub();
      function display_assSub()
      {
@@ -911,7 +908,7 @@ fetchAllSection();
         })
      }
 
-    // assign
+    // assign students subs
     subs();
     function subs()
     {
@@ -945,6 +942,86 @@ fetchAllSection();
             
         })
     }
+
+    // get teachers code
+    get_t_code();
+    function get_t_code()
+    {
+        $(document).on('click', '#teachSubs',function(){
+            var ID = $(this).attr('data-id1');
+            $('#t_code_ass').val(ID);
+        })
+    }
+     //display assigned subjects to teachers
+     display_assSub_teach();
+     function display_assSub_teach()
+     {
+        $(document).on('click','#teachSubs',function()
+        {
+         var ID = $(this).attr('data-id1');
+         $.ajax({
+             url: 'assets/php/admin-action.php',
+             method : 'post',
+             data : {T_ID:ID, action: 'fetchTeachSubs'},
+             success:function(response){
+                 $('#modal_subject_teacher').modal('show');
+                 $('#showTeachSub').html(response);
+                 $("#assTeachSubTable").DataTable({
+                     order: [0,'desc'],
+                     destroy: true,
+                     paging: false
+                 });
+             }
+         })
+             
+        })
+     }
+
+      // assign teachers subs
+    teachsubs();
+    function teachsubs()
+    {
+        $('#check_teach_subs').multiselect({
+            nonSelectedText: "Select Subject",
+            enableFilter: true,
+            enableCaseInsensitiveFiltering: true,
+            buttonWidth: '200px',
+        })
+        
+        $(document).on('click', '#ass_t_Subs',function(event){
+            event.preventDefault();
+
+            var t_IDD = $('#t_code_ass').val();
+            var tsubs = $('#check_teach_subs').val();
+        
+            $.ajax({
+                url: 'ass-teach-subs.php',
+                method : 'post',
+                data : {t_IDD:t_IDD, tsubs: tsubs},
+                success:function(response){
+                    $('#check_teach_subs option:selected').each(function(){
+                        $(this).prop('selected',false)
+                    })
+                    $('#check_teach_subs').multiselect('refresh')
+                    
+                    alert(response)
+                    window.location = 'admin-faculty.php'
+                }
+            })
+            
+        })
+    }
+
+        // get subjects code
+        get_s_code();
+        function get_s_code()
+        {
+            $(document).on('click', '#students_ass',function(){
+                var ID = $(this).attr('data-id4');
+                $('#subs_id').val(ID);
+                $('#modal_students_ass_subs').modal('show');
+            })
+        }
 //end of the document
     });
 
